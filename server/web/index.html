@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mih.AI</title>
+<link rel="icon" href="/web/mih-ai.ico" sizes="any">
+<link rel="stylesheet" href="/web/stil.css">
+</head>
+<body>
+
+<header>
+  <div class="bara">
+    <span class="nume">Mih.AI</span>
+    <span class="stare" id="stare">se conectează…</span>
+    <button id="noua" title="Începe un fir gol">fir nou</button>
+  </div>
+</header>
+
+<!-- Chipul NU e decor și nu e un buton lipit lângă altele: e comanda. Clic pe
+     el deschide microfonul, și cât e deschis răspunsurile pleacă rostite. De-aia
+     stă în mijlocul paginii, nu în bară. Ce înseamnă fiecare formă e scris în
+     `chip.js`, în tabelul `STARI`. -->
+<!-- Pagina e împărțită în două jumătăți, cerute pe 25 august: în stânga
+     scena, unde stă chipul și se vede cum se transformă; în dreapta tot chatul,
+     firul plus câmpul în care scrii. Formularul e ÎN coloana dreaptă, nu sub
+     amândouă: altfel jumătatea stângă n-ar mai fi un ecran, ci un chenar. -->
+<main>
+  <section class="scena" id="chip"
+           title="Clic: deschide sau închide microfonul. Cât e deschis, Mih.AI răspunde cu voce.">
+    <canvas id="panza"></canvas>
+    <span class="cuvant" id="cuvant"></span>
+  </section>
+
+  <section class="chat">
+    <div class="fir" id="fir"></div>
+    <form id="formular">
+      <textarea id="camp" rows="1" placeholder="Scrie. Enter trimite, Shift+Enter rupe rândul."
+                autofocus></textarea>
+      <button type="submit" id="trimite">→</button>
+    </form>
+  </section>
+</main>
+
+<script type="module" src="/web/pagina.js"></script>
+</body>
+</html>

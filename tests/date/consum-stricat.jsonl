@@ -1,0 +1,4 @@
+{"ora": "2026-10-04T10:00:00+03:00", "model": "claude-sonnet-5", "unde": "pagina", "input": 2, "cache_write": 22526, "cache_read": 0, "output": 51, "cache_ttl": "5m"}
+{"ora": "2026-10-04T10:05:00+03:00", "model": "claude-sonnet-5", "unde": "pagi
+{"ora": "2026-10-04T10:10:00+03:00", "model": "claude-necunoscut-9", "unde": "pagina", "input": 100, "cache_write": 0, "cache_read": 0, "output": 100}
+{"ora": "2026-10-04T10:15:00+03:00", "model": "claude-sonnet-5-20261001", "unde": "autopsie", "input": 10, "cache_write": 1000, "cache_read": 20000, "output": 300, "cache_ttl": "1h"}

@@ -1,0 +1,223 @@
+/* Pagina Mih.AI. Un camp, un fir, nimic altceva.
+   Fara framework si fara fonturi de pe internet: pagina trebuie sa se deschida
+   la fel si cu reteaua cazuta, fiindca serverul e local. */
+
+/* Culorile vin din referințele aduse de autor pe 25 august — neon violet-magenta
+   pe negru, cyan ca al doilea accent — și au înlocuit chihlimbarul luat de la
+   puntea JA.S.Mine. Rolurile au rămas aceleași: `--lampa` pe comenzi și pe
+   stări, `--iris` pe ce e rupt, textul deschis pe fundal închis.
+   Aceleași nuanțe stau și în `chip.js`; se schimbă în amândouă odată. */
+:root {
+  --fundal: #0b0910;
+  --fundal-2: #14101f;
+  --scena: #08060d;
+  --text: #e9e3f2;
+  --sters: #8d84a3;
+  --linie: #262036;
+  --lampa: #a855f7;
+  --magenta: #f09cff;
+  --cyan: #22d3ee;
+  --iris: #ff3b5c;
+  --accent: var(--lampa);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--fundal);
+  color: var(--text);
+  font: 16px/1.6 "Segoe UI", system-ui, sans-serif;
+}
+
+header {
+  border-bottom: 1px solid var(--linie);
+  background: var(--fundal-2);
+}
+
+/* Bara de sus trece peste amândouă jumătățile: numele și starea sunt ale
+   programului, nu ale unei coloane. */
+.bara {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  padding: .7rem 1.2rem;
+}
+
+.nume {
+  font-weight: 600;
+  letter-spacing: .04em;
+  color: var(--lampa);
+}
+.stare { flex: 1; font-size: .8rem; color: var(--sters); }
+
+header button {
+  background: none;
+  border: 1px solid var(--linie);
+  color: var(--sters);
+  border-radius: 4px;
+  padding: .3rem .8rem;
+  font-size: .72rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color .15s, border-color .15s, background .15s;
+}
+header button:hover { color: var(--text); border-color: var(--sters); }
+header button:disabled { opacity: .5; cursor: default; }
+
+/* DOUA JUMATATI, nu o coloană cu un chenar. În stânga scena — chipul și
+   transformările lui; în dreapta chatul întreg, fir plus câmp. Împărțirea e
+   cerută pe 25 august, odată cu referințele desenului.
+   Derularea e a firului, nu a paginii. */
+main {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+}
+
+/* Scena umple jumătatea ei, fundal mai adânc decât al paginii. Pânza nu mai e
+   pătrată: silueta rămâne pătrată și centrată (o ține `rescaleaza()` din
+   `chip.js`), dar grila de circuit are nevoie de toată suprafața, altfel scena
+   se termină vizibil la mijlocul ei. */
+.scena {
+  position: relative;
+  min-width: 0;
+  background:
+    radial-gradient(circle at 50% 45%, rgba(168, 85, 247, .10), transparent 62%),
+    var(--scena);
+  border-right: 1px solid var(--linie);
+  cursor: pointer;
+  transition: background .2s;
+}
+.scena:hover { background: radial-gradient(circle at 50% 45%, rgba(168, 85, 247, .16), transparent 62%), var(--scena); }
+.scena canvas { display: block; width: 100%; height: 100%; }
+
+/* Coloana dreaptă: firul se derulează, formularul stă lipit de fund. */
+.chat {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  padding: 1.2rem 1.2rem 0;
+}
+
+/* Un singur cuvânt sub chip. Forma spune ce face; cuvântul e pentru cazul în
+   care forma nu e încă învățată. */
+.cuvant {
+  position: absolute;
+  left: 0; right: 0; bottom: 1.6rem;
+  text-align: center;
+  font-size: .75rem;
+  letter-spacing: .12em;
+  color: var(--sters);
+  pointer-events: none;
+}
+.cuvant.rau { color: var(--iris); }
+
+.fir {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: .5rem;
+}
+
+/* Pe ecran îngust jumătățile se pun una peste alta: scena sus, cu înălțime
+   fixă, chatul dedesubt. Scena nu dispare — e și comanda microfonului. */
+@media (max-width: 62rem) {
+  main { grid-template-columns: 1fr; grid-template-rows: minmax(9rem, 34vh) 1fr; }
+  .scena { border-right: none; border-bottom: 1px solid var(--linie); }
+  .chat { padding: .8rem .8rem 0; }
+}
+
+.replica { margin-bottom: 1.6rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+.replica .cine {
+  display: block;
+  font-size: .72rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--sters);
+  margin-bottom: .35rem;
+}
+.replica.mihai .cine { color: var(--sters); }
+.replica.twin .cine { color: var(--lampa); }
+.replica.eroare { color: #ff9aab; }
+.replica.eroare .cine { color: var(--iris); }
+
+/* Gândirea: se vede că există, nu se citește dacă n-o ceri. Plătită oricum —
+   până pe 5 septembrie se plătea și se arunca. Mai mică și ștearsă, ca să nu
+   concureze replica; linia din stânga o ține vizual în afara ei. */
+.replica .gand {
+  margin-bottom: .6rem;
+  padding-left: .7rem;
+  border-left: 2px solid var(--linie);
+  color: var(--sters);
+  font-size: .82rem;
+}
+.replica .gand > summary {
+  cursor: pointer;
+  font-size: .72rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--sters);
+  opacity: .75;
+}
+.replica .gand > summary:hover { opacity: 1; }
+.replica .gand[open] > summary { margin-bottom: .35rem; }
+
+/* Cursorul care arata ca inca vine text. Daca raspunsul ar aparea dintr-o
+   bucata la final, asta e semnul care ar lipsi. */
+.scrie::after {
+  content: "▍";
+  color: var(--accent);
+  animation: clipeste 1s steps(2) infinite;
+}
+@keyframes clipeste { 50% { opacity: 0; } }
+
+/* Formularul stă în coloana chatului, deci nu mai are nevoie nici de lățime
+   maximă, nici de centrare: jumătatea îi dă amândouă. */
+form {
+  display: flex;
+  gap: .6rem;
+  padding: .8rem 0 1.2rem;
+  width: 100%;
+}
+
+textarea {
+  flex: 1;
+  resize: none;
+  max-height: 40vh;
+  padding: .7rem .9rem;
+  border: 1px solid var(--linie);
+  border-radius: 6px;
+  background: var(--fundal-2);
+  color: var(--text);
+  font: inherit;
+}
+textarea:focus { outline: none; border-color: var(--accent); }
+
+/* Contur, nu bloc plin: butonul de trimis stă lângă câmpul în care scrii tot
+   timpul, iar o pată violetă de trei centimetri trage ochiul de la text. Se
+   umple la hover, când chiar te uiți la el. */
+form button {
+  width: 3rem;
+  border: 1px solid var(--lampa);
+  border-radius: 6px;
+  background: none;
+  color: var(--lampa);
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background .15s, color .15s;
+}
+form button:hover:not(:disabled) {
+  background: var(--lampa);
+  color: var(--fundal);
+}
+form button:disabled { opacity: .35; cursor: default; }

@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+env/
+.pytest_cache/
+build/
+dist/
+*.egg-info/
+
+# Secrets — the key lives in an environment variable, never in a file here
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+credentials*.json
+client_secret*.json
+token*.json
+
+# What the program writes at runtime: conversations, usage log, transcription log
+/date/
+logs/
+*.log
+*.db
+*.sqlite
+*.sqlite3
+*.bak
+
+# Downloaded models (scripts/adu-vocea.py) and the OpenVINO compile cache
+modele/
+cache-openvino/
+
+# Temporary files
+tmp-*
+*.tmp
+
+# OS and editors
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
