@@ -17,6 +17,22 @@ Code comments, the user interface and the persona are in Romanian.
 always-on-top dictation window. When the Mih.AI page takes focus, the server puts the Iris
 window back on top without stealing focus (`server/fereastra.py`).
 
+## What makes it reliable
+
+- **It does not invent a life.** The twin may use what any model knows, but what the person
+  lived, decided or believes only with a source in the evidence files. Its style is written from
+  real texts, not from rules about them.
+- **The test cannot be cheated.** A blind bank of questions the person answers alone never enters
+  the prompt, and the function that builds the prompt has no parameter through which it could.
+- **Every cent is accounted for.** Each paid call logs the token usage the API itself reported,
+  even when the reply is interrupted, and the tests recompute the spend two independent ways.
+- **Silence never costs money.** Five filters stop noise, coughs and Whisper's invented closing
+  lines before anything reaches the paid model.
+- **Local by design.** Speech runs on the machine; only the model call goes out. The server
+  answers only on `127.0.0.1` and refuses any other Host or Origin, and the tests prove it.
+- **23 checks, none calling the paid API**, including a real start that waits for the speech
+  engine and transcribes a reference sentence.
+
 ## Screenshots
 
 ![Mih.AI with a reply](docs/screenshots/conversatie.png)
@@ -254,6 +270,15 @@ Measured on an ASUS Vivobook S 16 — Intel Core Ultra 7 255H, Intel Arc 140T in
 - **No authentication.** The server listens on `127.0.0.1` only and rejects requests whose
   Host or Origin is not local.
 - **Prices are written in the code** and were last checked on 3 September 2026.
+
+## How it was built
+
+Mih.AI was built with Claude Code, by a domain expert working as architect and judge of every
+result, on the [Streanga Method](https://github.com/Mihai-Streanga/streanga-method-for-claude).
+It was already the leanest of the projects when it was brought onto the method, and it is a
+precedent for two of the method's patterns: a health check that never touches the paid API, and
+deterministic code for every figure. Its spend log, which records the API's own figures for
+every call, is the kind of measurement the method asks every paid project to keep.
 
 ## License
 
