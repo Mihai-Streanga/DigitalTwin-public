@@ -1,5 +1,7 @@
 # Mih.AI — a personal digital twin
 
+[![tests](https://github.com/Mihai-Streanga/DigitalTwin-public/actions/workflows/tests.yml/badge.svg)](https://github.com/Mihai-Streanga/DigitalTwin-public/actions/workflows/tests.yml)
+
 Mih.AI is a small local web app where you talk — by keyboard or by voice — with a language
 model prompted from one person's own writing. It does two things: it talks *with* its author,
 as a thinking partner that is expected to push back, and *as* the author, to others, always
@@ -279,6 +281,10 @@ It was already the leanest of the projects when it was brought onto the method, 
 precedent for two of the method's patterns: a health check that never touches the paid API, and
 deterministic code for every figure. Its spend log, which records the API's own figures for
 every call, is the kind of measurement the method asks every paid project to keep.
+
+The history here is short because this repository is a copy derived from the private working
+repository, which keeps the full history and the personal data left out of the copy: 109 commits,
+from August to October 2026 (read on 10 October 2026).
 
 ## License
 
